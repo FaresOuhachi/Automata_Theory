@@ -58,7 +58,10 @@ class Generator:
 
                     for j in self.P.get(i):
 
-                        self.possiblities(word.replace(i, j))
+                       print("before: " + word)
+                       print("after: " + word.replace(i, j))
+                       self.possiblities(word.replace(i, j))
+
         else:
 
             if word not in self.mots:
@@ -69,6 +72,52 @@ class Generator:
 
         for i in self.mots:
             print(i)
+
+class Verify:
+
+    def __init__(self,word:str):
+
+        self.word = word
+
+    def verifier(self,word_table:list):
+
+        if len(word_table) == 1:
+
+            if word_table[0] == 'a':
+
+                return True
+
+            else:
+
+                return False
+
+        elif len(word_table) == 3:
+
+            if (word_table == ['a', 'a', 'b'] or word_table == ['a','a','a']):
+
+                return True
+
+            else:
+
+                return False
+
+
+        else:
+
+            if (word_table[-1] == 'b' and word_table[0:2] == ['a','a']):
+
+                return self.verifier(word_table[2:-1])
+
+            elif (word_table[-1] == 'a'):
+
+                return self.verifier(word_table[:-1])
+
+            else:
+
+                return False
+
+
+
 
 
 print(''' 
@@ -166,6 +215,14 @@ if choice_partie == 2 :
     generated.show_possibilities()
 
 if choice_partie == 3:
+
+    Mot = str(input("Entrer un mot pour vérifier s'il appartient au langage L(G): "))
+
+    Verify_word = Verify(Mot)
+
+    Mot_table = list(Verify_word.word)
+
+    print(Verify_word.verifier(Mot_table))
 
     pass
 
